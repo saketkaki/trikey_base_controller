@@ -27,13 +27,13 @@
   <group if="$(arg real_robot)">
 
     <!-- Lidar Odom -->
-    <group>
+    <!-- <group>
       <include file="$(find bumpybot_navigation)/launch/icp_odom.launch">
         <arg name="filter" value="false"/>
         <arg name ="rviz" value="false"/>
-        <arg name="alpha_value" value="0.1"/>
+        <arg name="alpha_value" value="0.5"/>
       </include>
-    </group>
+    </group> -->
 
 
 
@@ -57,8 +57,7 @@
   
   <group if="$(arg xbox)">
     <node pkg="joy" type="joy_node" name="joy_node">
-        <param name="dev" value="$(arg joy_dev)" />
-        <param name="deadzone" value="0.5" />
+        <param name="dev"v alue="0.5" />
         <param name="autorepeat_rate" value="1500" />
         <param name="coalesce_interval" value="0.0005"/>
         <remap from="joy" to="$(arg joy_topic)" />

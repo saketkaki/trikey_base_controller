@@ -105,14 +105,14 @@ class OdomFilter():
         filtered_msg.pose.pose.position.z = 0
         # Orientation
         # Quaternion SLERP for filtering
-        q1 = [self.prev_msg.pose.pose.orientation.x, self.prev_msg.pose.pose.orientation.y, self.prev_msg.pose.pose.orientation.z, self.prev_msg.pose.pose.orientation.w]
-        q2 = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
+        # q1 = [self.prev_msg.pose.pose.orientation.x, self.prev_msg.pose.pose.orientation.y, self.prev_msg.pose.pose.orientation.z, self.prev_msg.pose.pose.orientation.w]
+        # q2 = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
         
-        q_filtered = tf.transformations.quaternion_slerp(q1, q2, alpha)
-        filtered_msg.pose.pose.orientation.x = q_filtered[0]
-        filtered_msg.pose.pose.orientation.y = q_filtered[1]
-        filtered_msg.pose.pose.orientation.z = q_filtered[2]
-        filtered_msg.pose.pose.orientation.w = q_filtered[3]
+        # q_filtered = tf.transformations.quaternion_slerp(q1, q2, alpha)
+        # filtered_msg.pose.pose.orientation.x = q_filtered[0]
+        # filtered_msg.pose.pose.orientation.y = q_filtered[1]
+        # filtered_msg.pose.pose.orientation.z = q_filtered[2]
+        # filtered_msg.pose.pose.orientation.w = q_filtered[3]
 
         self.prev_msg = deepcopy(filtered_msg)
         
