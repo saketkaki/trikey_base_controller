@@ -76,7 +76,7 @@ namespace trikey_base_controller
 
         //odom
         joint_positions_prev_ = Eigen::Vector3d::Zero();
-        publish_odom_wheel_tf_ = true;
+        publish_odom_wheel_tf_ = false;
         
 
     }
@@ -198,9 +198,7 @@ namespace trikey_base_controller
         return true;
     }
 
-    //compute Odom
-    // void TrikeyBaseController::computeOdometry(double dt, Eigen::Vector3d &cmd_wheel_velocities){
-    // }
+
 
     //Controller startup (real-time)
     void TrikeyBaseController::starting(const ros::Time& time) {
@@ -526,29 +524,7 @@ namespace trikey_base_controller
         }  
     } 
 
-    void TrikeyBaseController::filterOdometry(const nav_msgs::Odometry& odometry_)
-    {
 
-        // Filter odometry
-        // Divide odometry into pose and twist
-        Eigen::Vector3d pose3d_;
-        pose3d_ << odometry_.pose.pose.position.x, odometry_.pose.pose.position.y, 0;
-        Eigen::Vector3d linVel3d_;
-        linVel3d_ << odometry_.twist.twist.linear.x, odometry_.twist.twist.linear.y, 0;
-        Eigen::Vector3d angVel3d_;
-        angVel3d_ << 0, 0, odometry_.twist.twist.angular.z;
-
-        // Filter pose and twist
-        // odom_filter_->Input(pose3d_);
-        // Eigen::Vector3d filtered_pose3d_ = odom_filter_->Output();
-        // odom_filter_->Input(linVel3d_);
-        // Eigen::Vector3d filtered_lin_vel3d_ = odom_filter_->Output();
-        // odom_filter_->Input(angVel3d_);
-        // Eigen::Vector3d filtered_ang_vel3d_ = odom_filter_->Output();
-
-
-
-    } 
 }
 
 //Register the plugin: PLUGINLIB_EXPORT_CLASS(my_namespace::MyPlugin, base_class_namespace::PluginBaseClass)

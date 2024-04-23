@@ -19,7 +19,7 @@ trikey:
   #    wheel2_joint: { p: 10.0, i: 0.0, d: 5.0 }
 
   # Odometry
-  odom_frame: "odom"
+  odom_frame: "odom_wheel"
   base_frame: "base_link"
 
   # Publish all joint states -----------------------------------
