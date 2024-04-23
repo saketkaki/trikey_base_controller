@@ -43,7 +43,7 @@ namespace trikey_base_controller
     TrikeyBaseController::TrikeyBaseController()
     : command_struct_twist_(),
         base_frame_("base_link"),
-        odom_frame_("odom")
+        odom_frame_("odom_wheel")
     {
         dt_ = 0.001;
         kp_vel_ = 0.;
@@ -370,7 +370,7 @@ namespace trikey_base_controller
 
     void TrikeyBaseController::setupOdomPublishers(ros::NodeHandle& nh)
     {
-        odom_pub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(nh, "/odom", 100));
+        odom_pub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(nh, "/odom_wheel", 100));
         odom_pub_->msg_.header.frame_id = odom_frame_;
         odom_pub_->msg_.child_frame_id = base_frame_;
         odom_pub_->msg_.pose.pose.position.z = 0.0;
