@@ -180,6 +180,9 @@ namespace trikey_base_controller
         double vel_deadzone_;
         double friction_compensation_;
         KarnoppCompensator *karnopp_compensator_;
+        KarnoppCompensator *w0_friction_comp;
+        KarnoppCompensator *w1_friction_comp;
+        KarnoppCompensator *w2_friction_comp;
 
     public:
         OmniwheelKinematics *kinematics_calculator;

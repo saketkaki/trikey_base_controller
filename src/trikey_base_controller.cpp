@@ -71,6 +71,10 @@ namespace trikey_base_controller
         viscous_force_ = 0.1;
         vel_deadzone_ = 0.05;
 
+        w0_friction_comp = new KarnoppCompensator(static_force0_, viscous_force_, vel_deadzone_);
+        w1_friction_comp = new KarnoppCompensator(static_force1_, viscous_force_, vel_deadzone_);
+        w2_friction_comp = new KarnoppCompensator(static_force2_, viscous_force_, vel_deadzone_);
+
         // initialize previous timestamp
         timestamp_prev_ = 0.0;
 
@@ -88,6 +92,9 @@ namespace trikey_base_controller
         // change to smart ptr
         delete odom_filter_;
         delete karnopp_compensator_;
+        delete w0_friction_comp;
+        delete w1_friction_comp;
+        delete w2_friction_comp;
         cmd_sub_.shutdown();
         kp_vel_sub_.shutdown();
         ki_vel_sub_.shutdown();
@@ -240,9 +247,6 @@ namespace trikey_base_controller
         // compute corresponding desired wheel velocities
         computeWheelVelocities(curr_cmd_twist, cmd_wheel_velocities_);
 
-        auto w0_friction_comp = KarnoppCompensator(static_force0_, viscous_force_, vel_deadzone_);
-        auto w1_friction_comp = KarnoppCompensator(static_force1_, viscous_force_, vel_deadzone_);
-        auto w2_friction_comp = KarnoppCompensator(static_force2_, viscous_force_, vel_deadzone_);
         // auto w0_encoder_conv = EncoderConverter(8500);
         // auto w1_encoder_conv = EncoderConverter(8500);
         // auto w2_encoder_conv = EncoderConverter(8350);
@@ -256,20 +260,20 @@ namespace trikey_base_controller
         {
         // Feedforawrd term to compensate for friction
           if (j == 0) {
-            friction_compensation_ = w0_friction_comp.Update(cmd_wheel_velocities_[j]);
+            friction_compensation_ = w0_friction_comp->Update(cmd_wheel_velocities_[j]);
    
             // joint_positions_[j] = w0_encoder_conv.ticksToRadians(encoder_ticks_[j]);
 
             
           }
           else if (j == 1) {
-            friction_compensation_ = w1_friction_comp.Update(cmd_wheel_velocities_[j]);
+            friction_compensation_ = w1_friction_comp->Update(cmd_wheel_velocities_[j]);
 
             // joint_positions_[j] = w1_encoder_conv.ticksToRadians(encoder_ticks_[j]);
 
           }
           else if (j == 2) {
-            friction_compensation_ = w2_friction_comp.Update(cmd_wheel_velocities_[j]);
+            friction_compensation_ = w2_friction_comp->Update(cmd_wheel_velocities_[j]);
             
             // joint_positions_[j] = w2_encoder_conv.ticksToRadians(encoder_ticks_[j]);
 
